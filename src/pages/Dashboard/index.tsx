@@ -12,7 +12,7 @@ interface Repository {
   owner: {
     login: string;
     avatar_url: string;
-  }
+  };
 }
 
 const Dashboard: React.FC = () => {
@@ -20,7 +20,8 @@ const Dashboard: React.FC = () => {
   const [repositories, setRepositories] = useState<Repository[]>([]);
 
   async function handleAddRepository(
-    event: FormEvent<HTMLFormElement>): Promise<void> {
+    event: FormEvent<HTMLFormElement>,
+  ): Promise<void> {
     event.preventDefault();
     const response = await api.get<Repository>(`repos/${newRepo}`);
 
@@ -32,13 +33,13 @@ const Dashboard: React.FC = () => {
 
   return (
     <>
-      <img src={logoImg} alt="Github Explorer"/>
+      <img src={logoImg} alt="Github Explorer" />
       <Title>Explore repositório no Github</Title>
 
       <Form onSubmit={handleAddRepository}>
         <input
           value={newRepo}
-          onChange={e => setNewRepo(e.target.value)}
+          onChange={(e) => setNewRepo(e.target.value)}
           placeholder="Digite o nome do repositório"
           type="text"
         />
@@ -46,10 +47,11 @@ const Dashboard: React.FC = () => {
       </Form>
 
       <Repositories>
-        {repositories.map(repository => (
+        {repositories.map((repository) => (
           <a key={repository.full_name} href="teste">
-            <img src={repository.owner.avatar_url}
-            alt={repository.owner.login}
+            <img
+              src={repository.owner.avatar_url}
+              alt={repository.owner.login}
             />
             <div>
               <strong>{repository.full_name}</strong>
@@ -61,7 +63,7 @@ const Dashboard: React.FC = () => {
         ))}
       </Repositories>
     </>
-  )
-}
+  );
+};
 
 export default Dashboard;
